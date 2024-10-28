@@ -1,0 +1,79 @@
+{% load static %}
+{% include 'header.html' %}
+<body>
+    {% include 'navbar.html' %}
+
+    <!-- All Products -->
+
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>All Products</h2>
+            <select>
+                <option>Default Sort</option>
+                <option>Sort By Price</option>
+                <option>Sort By Popularity</option>
+                <option>Sort By Rating</option>
+                <option>Sort By Sale</option>
+            </select>
+        </div>
+        <div class="row">
+            {% for i in products %}
+            <div class="col-4">
+                <a href="{% url 'product_details' i.id  %}"><img src="{{i.image.url}}"></a>
+                <h4>{{i.title}}</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>{{i.price}}</p>
+            </div>
+            {% endfor %}
+        </div>  
+        <div class="page-btn">
+            {% if products.has_previous %}
+            <a href="?page={{products.previouse_page_number}}"><span><</span></a>
+            {% endif %}
+
+            {% for x in products.paginator.page_range %}
+            <a href="?page={{x}}"><span>{{x}}</span></a>
+            {% endfor %}
+
+            {% if products.has_next %}
+            <a href="?page={{products.previouse_page_number}}"><span>></span></a>
+            {% endif %}
+
+
+
+
+            
+            <!-- <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>&#8594;</span> -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- javascript -->
+
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+</body>
+
+</html>
